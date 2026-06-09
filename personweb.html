@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李俊颖 | AI全栈开发者</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#8b5cf6',
+                        accent: '#06b6d4',
+                        dark: '#0f172a',
+                        'dark-light': '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px #6366f1, 0 0 10px #6366f1' },
+                            '100%': { boxShadow: '0 0 20px #6366f1, 0 0 30px #6366f1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-gradient {
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .bg-grid {
+                background-image: radial-gradient(rgba(99, 102, 241, 0.1) 1px, transparent 1px);
+                background-size: 50px 50px;
+            }
+            .skill-bar {
+                transition: width 1.5s ease-out;
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-gray-100 font-sans antialiased">
+    <!-- 背景网格 -->
+    <div class="fixed inset-0 bg-grid opacity-30 pointer-events-none"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-dark/80 border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold bg-gradient-to-r from-primary to-accent text-gradient">
+                    LJY
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="hover:text-primary transition-colors">关于我</a>
+                    <a href="#skills" class="hover:text-primary transition-colors">技术栈</a>
+                    <a href="#projects" class="hover:text-primary transition-colors">项目</a>
+                    <a href="#research" class="hover:text-primary transition-colors">研究</a>
+                    <a href="#contact" class="hover:text-primary transition-colors">联系</a>
+                </div>
+                <button id="menuBtn" class="md:hidden text-2xl">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <!-- 移动端菜单 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-dark-light border-t border-gray-800">
+            <div class="px-6 py-4 space-y-4">
+                <a href="#about" class="block hover:text-primary transition-colors">关于我</a>
+                <a href="#skills" class="block hover:text-primary transition-colors">技术栈</a>
+                <a href="#projects" class="block hover:text-primary transition-colors">项目</a>
+                <a href="#research" class="block hover:text-primary transition-colors">研究</a>
+                <a href="#contact" class="block hover:text-primary transition-colors">联系</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative pt-20">
+        <div class="max-w-6xl mx-auto px-6 py-20">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="flex-1 text-center md:text-left">
+                    <p class="text-accent mb-4 text-lg">👋 你好，我是</p>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6">
+                        <span class="bg-gradient-to-r from-primary via-secondary to-accent text-gradient">李俊颖</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl text-gray-400 mb-8">
+                        AI 全栈开发者 · 计算机视觉研究员
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-8 max-w-xl">
+                        云南财经大学智能科学与技术专业，专注于深度学习、多模态数据融合与AI工程化落地。
+                        热爱探索AI技术边界，致力于用技术创造价值。
+                    </p>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+                        <a href="#contact" class="px-8 py-3 bg-primary hover:bg-primary/90 rounded-lg font-semibold transition-all hover:scale-105 animate-glow">
+                            联系我
+                        </a>
+                        <a href="https://github.com" target="_blank" class="px-8 py-3 border border-primary text-primary hover:bg-primary/10 rounded-lg font-semibold transition-all">
+                            <i class="fa fa-github mr-2"></i>GitHub
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-1 flex justify-center">
+                    <div class="relative">
+                        <div class="w-72 h-72 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-primary to-accent p-1 animate-float">
+                            <div class="w-full h-full rounded-full bg-dark-light flex items-center justify-center overflow-hidden">
+                                <div class="text-8xl">👨‍💻</div>
+                            </div>
+                        </div>
+                        <div class="absolute -top-4 -right-4 w-16 h-16 bg-accent/20 rounded-full blur-xl"></div>
+                        <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-primary/20 rounded-full blur-xl"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fa fa-chevron-down text-gray-500 text-2xl"></i>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">
+                <span class="bg-gradient-to-r from-primary to-accent text-gradient">关于我</span>
+            </h2>
+            <p class="text-gray-400 text-center mb-16">About Me</p>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="bg-dark-light p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-graduation-cap text-primary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">教育背景</h3>
+                        </div>
+                        <p class="text-gray-400">
+                            云南财经大学 · 智能科学与技术专业<br>
+                            22岁 · 即将读研深造
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark-light p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-flask text-secondary text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">研究方向</h3>
+                        </div>
+                        <p class="text-gray-400">
+                            计算机视觉 · 深度学习 · 多模态数据融合<br>
+                            大学生心理健康与AI结合研究
+                        </p>
+                    </div>
+                    
+                    <div class="bg-dark-light p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center">
+                                <i class="fa fa-rocket text-accent text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold">技术热情</h3>
+                        </div>
+                        <p class="text-gray-400">
+                            AI全栈开发 · 3D可视化 · Agent开发<br>
+                            游戏机制探索 · 数字工具实践
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-dark-light p-8 rounded-xl border border-gray-800">
+                    <h3 class="text-2xl font-semibold mb-6">个人简介</h3>
+                    <p class="text-gray-400 leading-relaxed mb-4">
+                        我是一名对AI技术充满热情的开发者，拥有扎实的计算机视觉和深度学习基础。
+                        在学术研究方面，我专注于多模态数据融合技术，并探索其在大学生心理健康领域的应用。
+                    </p>
+                    <p class="text-gray-400 leading-relaxed mb-4">
+                        工程实践中，我熟练掌握从前端到后端的全栈开发技术，能够独立完成AI系统的设计与落地。
+                        同时热衷于探索游戏机制、虚拟资产优化等有趣的技术应用场景。
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        相信技术可以改变世界，期待与志同道合的伙伴一起创造有价值的产品。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技术栈 -->
+    <section id="skills" class="py-20 bg-dark-light/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">
+                <span class="bg-gradient-to-r from-primary to-accent text-gradient">技术栈</span>
+            </h2>
+            <p class="text-gray-400 text-center mb-16">Tech Stack</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- AI & 深度学习 -->
+                <div class="bg-dark p-6 rounded-xl border border-gray-800 hover:border-primary/50 transition-all hover:transform hover:scale-105">
+                    <div class="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI & 深度学习</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Python / PaddlePaddle</span>
+                                <span class="text-primary">95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>计算机视觉 / OpenCV</span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>MediaPipe / 多模态</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-primary to-secondary rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 前端开发 -->
+                <div class="bg-dark p-6 rounded-xl border border-gray-800 hover:border-accent/50 transition-all hover:transform hover:scale-105">
+                    <div class="w-14 h-14 bg-gradient-to-r from-accent to-primary rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa fa-code text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">前端开发</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Vue3 / Vite / TypeScript</span>
+                                <span class="text-accent">90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-accent to-primary rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Three.js / 3D 可视化</span>
+                                <span class="text-accent">85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-accent to-primary rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Tailwind CSS</span>
+                                <span class="text-accent">88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-accent to-primary rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 后端 & 运维 -->
+                <div class="bg-dark p-6 rounded-xl border border-gray-800 hover:border-secondary/50 transition-all hover:transform hover:scale-105">
+                    <div class="w-14 h-14 bg-gradient-to-r from-secondary to-accent rounded-xl flex items-center justify-center mb-6">
+                        <i class="fa fa-server text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">后端 & 运维</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Node.js / Express</span>
+                                <span class="text-secondary">88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-secondary to-accent rounded-full" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>MQTT / 实时通信</span>
+                                <span class="text-secondary">80%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-secondary to-accent rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Linux / Docker</span>
+                                <span class="text-secondary">85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-700 rounded-full overflow-hidden">
+                                <div class="skill-bar h-full bg-gradient-to-r from-secondary to-accent rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 技术标签云 -->
+            <div class="mt-12 flex flex-wrap justify-center gap-3">
+                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">GLTFLoader</span>
+                <span class="px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm">FBXLoader</span>
+                <span class="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm">pnpm</span>
+                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">OpenClaw</span>
+                <span class="px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm">MyBatis</span>
+                <span class="px-4 py-2 bg-accent/10 text-accent rounded-full text-sm">Agent开发</span>
+                <span class="px-4 py-2 bg-primary/10 text-primary rounded-full text-sm">模型部署</span>
+                <span class="px-4 py-2 bg-secondary/10 text-secondary rounded-full text-sm">大模型微调</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目作品 -->
+    <section id="projects" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">
+                <span class="bg-gradient-to-r from-primary to-accent text-gradient">项目作品</span>
+            </h2>
+            <p class="text-gray-400 text-center mb-16">Featured Projects</p>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 项目1 -->
+                <div class="group bg-dark-light rounded-xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
+                        <i class="fa fa-eye text-6xl text-primary group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">AI 全栈视觉系统</h3>
+                        <p class="text-gray-400 mb-4">
+                            基于计算机视觉的智能分析系统，集成MediaPipe人体姿态估计、
+                            目标检测与实时追踪功能，支持Web端3D可视化展示。
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">Vue3</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full">Three.js</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-primary hover:underline"><i class="fa fa-github mr-1"></i>源码</a>
+                            <a href="#" class="text-accent hover:underline"><i class="fa fa-external-link mr-1"></i>演示</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目2 -->
+                <div class="group bg-dark-light rounded-xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-secondary/20 to-accent/20 flex items-center justify-center">
+                        <i class="fa fa-heart text-6xl text-secondary group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">心理健康多模态分析平台</h3>
+                        <p class="text-gray-400 mb-4">
+                            融合文本、语音、面部表情多模态数据的大学生心理健康评估系统，
+                            采用深度学习模型进行情感分析与风险预警。
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">PaddlePaddle</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">多模态</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full">深度学习</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-primary hover:underline"><i class="fa fa-github mr-1"></i>源码</a>
+                            <a href="#" class="text-accent hover:underline"><i class="fa fa-file-text-o mr-1"></i>论文</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目3 -->
+                <div class="group bg-dark-light rounded-xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
+                        <i class="fa fa-android text-6xl text-accent group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">智能 Agent 开发框架</h3>
+                        <p class="text-gray-400 mb-4">
+                            自主研发的AI Agent开发框架，支持多工具调用、记忆管理、
+                            任务规划等功能，可快速构建复杂智能应用。
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Node.js</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">MQTT</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full">Agent</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-primary hover:underline"><i class="fa fa-github mr-1"></i>源码</a>
+                            <a href="#" class="text-accent hover:underline"><i class="fa fa-book mr-1"></i>文档</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 项目4 -->
+                <div class="group bg-dark-light rounded-xl overflow-hidden border border-gray-800 hover:border-primary/50 transition-all">
+                    <div class="h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                        <i class="fa fa-gamepad text-6xl text-primary group-hover:scale-110 transition-transform"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">游戏机制与经济系统模拟器</h3>
+                        <p class="text-gray-400 mb-4">
+                            针对沙盒游戏的NPC行为模拟、经济系统优化工具，
+                            支持恐龙等级生成、农场经济策略分析等游戏玩法深度探索。
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary text-xs rounded-full">Python</span>
+                            <span class="px-3 py-1 bg-secondary/10 text-secondary text-xs rounded-full">数据分析</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent text-xs rounded-full">策略优化</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-primary hover:underline"><i class="fa fa-github mr-1"></i>源码</a>
+                            <a href="#" class="text-accent hover:underline"><i class="fa fa-external-link mr-1"></i>演示</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 研究方向 -->
+    <section id="research" class="py-20 bg-dark-light/50">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">
+                <span class="bg-gradient-to-r from-primary to-accent text-gradient">研究方向</span>
+            </h2>
+            <p class="text-gray-400 text-center mb-16">Research Interests</p>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-dark rounded-xl border border-gray-800 hover:border-primary/50 transition-all">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-primary/20 rounded-2xl flex items-center justify-center">
+                        <i class="fa fa-cubes text-primary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">多模态数据融合</h3>
+                    <p class="text-gray-400">
+                        研究文本、图像、语音等多模态数据的融合表示学习方法，
+                        探索跨模态特征对齐与交互机制。
+                    </p>
+                </div>
+                
+                <div class="text-center p-8 bg-dark rounded-xl border border-gray-800 hover:border-secondary/50 transition-all">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-secondary/20 rounded-2xl flex items-center justify-center">
+                        <i class="fa fa-user-md text-secondary text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI + 心理健康</h3>
+                    <p class="text-gray-400">
+                        将AI技术应用于大学生心理健康评估与干预，
+                        通过多维度数据分析实现早期识别与精准干预。
+                    </p>
+                </div>
+                
+                <div class="text-center p-8 bg-dark rounded-xl border border-gray-800 hover:border-accent/50 transition-all">
+                    <div class="w-20 h-20 mx-auto mb-6 bg-accent/20 rounded-2xl flex items-center justify-center">
+                        <i class="fa fa-magic text-accent text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">AI Agent 智能体</h3>
+                    <p class="text-gray-400">
+                        研究自主智能体的决策机制、工具使用与记忆系统，
+                        构建具备推理与规划能力的AI系统。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center mb-4">
+                <span class="bg-gradient-to-r from-primary to-accent text-gradient">联系我</span>
+            </h2>
+            <p class="text-gray-400 text-center mb-16">Get In Touch</p>
+            
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-dark-light p-8 rounded-xl border border-gray-800">
+                    <p class="text-center text-gray-400 mb-8 text-lg">
+                        欢迎与我交流技术、探讨合作、或者只是打个招呼！
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <a href="https://github.com" target="_blank" class="flex items-center gap-4 p-4 bg-dark rounded-lg border border-gray-800 hover:border-primary/50 transition-all group">
+                            <div class="w-12 h-12 bg-gray-800 group-hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors">
+                                <i class="fa fa-github text-xl group-hover:text-primary transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">GitHub</p>
+                                <p class="text-gray-400 text-sm">查看开源项目</p>
+                            </div>
+                        </a>
+                        
+                        <a href="mailto:example@email.com" class="flex items-center gap-4 p-4 bg-dark rounded-lg border border-gray-800 hover:border-primary/50 transition-all group">
+                            <div class="w-12 h-12 bg-gray-800 group-hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors">
+                                <i class="fa fa-envelope text-xl group-hover:text-primary transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <p class="text-gray-400 text-sm">发送邮件</p>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="flex items-center gap-4 p-4 bg-dark rounded-lg border border-gray-800 hover:border-primary/50 transition-all group">
+                            <div class="w-12 h-12 bg-gray-800 group-hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors">
+                                <i class="fa fa-file-text-o text-xl group-hover:text-primary transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">简历</p>
+                                <p class="text-gray-400 text-sm">下载我的简历</p>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="flex items-center gap-4 p-4 bg-dark rounded-lg border border-gray-800 hover:border-primary/50 transition-all group">
+                            <div class="w-12 h-12 bg-gray-800 group-hover:bg-primary/20 rounded-lg flex items-center justify-center transition-colors">
+                                <i class="fa fa-wechat text-xl group-hover:text-primary transition-colors"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold">微信</p>
+                                <p class="text-gray-400 text-sm">添加好友</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-400">
+                    © 2026 李俊颖. Made with ❤️
+                </p>
+                <div class="flex gap-6">
+                    <a href="https://github.com" target="_blank" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-primary transition-colors">
+                        <i class="fa fa-envelope text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+
+        // 技能条动画
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const skillBars = entry.target.querySelectorAll('.skill-bar');
+                    skillBars.forEach(bar => {
+                        const width = bar.style.width;
+                        bar.style.width = '0%';
+                        setTimeout(() => {
+                            bar.style.width = width;
+                        }, 100);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('#skills > div').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
